@@ -2,7 +2,7 @@ import { pgClient } from '~/utils/postgres'
 import { redisClient } from '~/utils/redis'
 import { Request, Response } from 'express'
 
-export async function GetHealthPostgres(req: Request, res: Response) {
+async function GetPostgres(req: Request, res: Response) {
   try {
     const result = await pgClient.query('SELECT 1')
     if (result) {
@@ -15,7 +15,7 @@ export async function GetHealthPostgres(req: Request, res: Response) {
   }
 }
 
-export async function GetHealthRedis(req: Request, res: Response) {
+async function GetRedis(req: Request, res: Response) {
   try {
     const ping = await redisClient.ping()
     if (ping === 'PONG') {
@@ -27,3 +27,5 @@ export async function GetHealthRedis(req: Request, res: Response) {
     res.status(500).send({ status: 'error', message: 'Redis connection error', error: err.message })
   }
 }
+
+export default { GetPostgres, GetRedis }
