@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the Node.js application
-CMD [ "node", "src/index.js" ]
+CMD [ "node", "src/app.ts" ]
